@@ -1,0 +1,13 @@
+{
+    "name": "hvac-estimate-project",
+    "version": "1.0.0",
+    "description": "A simple web tool for HVAC technicians to quickly create and export service estimates on site.",
+    "author": "Krystian Kowalak",
+    "license": "UNLICENSED",
+    "private": true,
+    "scripts": {
+        "develop": "cd client && npm run develop",
+        "build": "cd client && npm run build",
+        "preview": "cd client && npm run preview"
+    }
+}
