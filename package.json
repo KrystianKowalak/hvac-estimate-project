@@ -6,8 +6,9 @@
     "license": "UNLICENSED",
     "private": true,
     "scripts": {
+        "install": "cd server && npm i && cd ../client && npm i",
         "develop": "cd client && npm run develop",
         "build": "cd client && npm run build",
-        "preview": "cd client && npm run preview"
+        "server": "cd server && npm start"
     }
 }
