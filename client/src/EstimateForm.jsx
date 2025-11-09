@@ -4,15 +4,15 @@ import "./EstimateForm.css";
 function EstimateForm() {
     const [formData, setFormData] = useState({
         customerName: "",
+        customerLocation: "",
         customerPhone: "",
         customerEmail: "",
-        customerLocation: "",
-        date: "",
         serviceType: "",
         unitNumber: "",
         modelNumber: "",
-        issue: "",
-        laborHours: 1.0
+        date: "",
+        laborHours: 1.0,
+        issue: ""
     });
 
     const handleChange = (event) => {
@@ -31,107 +31,137 @@ function EstimateForm() {
 
     return (
         <form className="estimate-form" onSubmit={handleSubmit}>
-            <label htmlFor="customerName">Name</label>
-            <input
-                type="text"
-                id="customerName"
-                name="customerName"
-                value={formData.customerName}
-                onChange={handleChange}
-            />
+            <div className="form-row">
+                <div className="form-group">
+                    <label htmlFor="customerName">Name</label>
+                    <input
+                        type="text"
+                        id="customerName"
+                        name="customerName"
+                        value={formData.customerName}
+                        onChange={handleChange}
+                    />
+                </div>
 
-            <label htmlFor="customerEmail">Email</label>
-            <input
-                type="text"
-                id="customerEmail"
-                name="customerEmail"
-                value={formData.customerEmail}
-                onChange={handleChange}
-            />
+                <div className="form-group">
+                    <label htmlFor="customerLocation">Location</label>
+                    <input
+                        type="text"
+                        id="customerLocation"
+                        name="customerLocation"
+                        value={formData.customerLocation}
+                        onChange={handleChange}
+                    />
+                </div>
+            </div>
 
-            <label htmlFor="customerPhone">Phone</label>
-            <input
-                type="text"
-                id="customerPhone"
-                name="customerPhone"
-                value={formData.customerPhone}
-                onChange={handleChange}
-            />
+            <div className="form-row">
+                <div className="form-group">
+                    <label htmlFor="customerPhone">Phone</label>
+                    <input
+                        type="text"
+                        id="customerPhone"
+                        name="customerPhone"
+                        value={formData.customerPhone}
+                        onChange={handleChange}
+                    />
+                </div>
 
-            <label htmlFor="customerLocation">Location</label>
-            <input
-                type="text"
-                id="customerLocation"
-                name="customerLocation"
-                value={formData.customerLocation}
-                onChange={handleChange}
-            />
+                <div className="form-group">
+                    <label htmlFor="customerEmail">Email</label>
+                    <input
+                        type="text"
+                        id="customerEmail"
+                        name="customerEmail"
+                        value={formData.customerEmail}
+                        onChange={handleChange}
+                    />
+                </div>
+            </div>
 
-            <label htmlFor="date">Service Date</label>
-            <input
-                type="date"
-                id="date"
-                name="date"
-                value={formData.date}
-                onChange={handleChange}
-            />
+            <div className="form-row">
+                <div className="form-group">
+                    <label htmlFor="serviceType">Service type</label>
+                    <select
+                        id="serviceType"
+                        name="serviceType"
+                        value={formData.serviceType}
+                        onChange={handleChange}
+                    >
+                        <option value="">Select a service...</option>
+                        <option value="Repair">Repair</option>
+                        <option value="Installation">Installation</option>
+                        <option value="Maintenance">Maintenance</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
 
-            <label htmlFor="serviceType">Service type</label>
-            <select
-                id="serviceType"
-                name="serviceType"
-                value={formData.serviceType}
-                onChange={handleChange}
-            >
-                <option value="">Select a service...</option>
-                <option value="Repair">Repair</option>
-                <option value="Installation">Installation</option>
-                <option value="Maintenance">Maintenance</option>
-                <option value="Other">Other</option>
-            </select>
+                <div className="form-group">
+                    <label htmlFor="unitNumber">Unit Number</label>
+                    <select
+                        id="unitNumber"
+                        name="unitNumber"
+                        value={formData.unitNumber}
+                        onChange={handleChange}
+                    >
+                        <option value="">Select a unit...</option>
+                        <option value="Legacy Unit">Legacy Unit</option>
+                        <option value="AC Unit - 104">AC Unit - 104</option>
+                        <option value="AC Unit - 104ST">AC Unit - 104ST</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+            </div>
 
-            <label htmlFor="unitNumber">Unit Number</label>
-            <select
-                id="unitNumber"
-                name="unitNumber"
-                value={formData.unitNumber}
-                onChange={handleChange}
-            >
-                <option value="">Select a unit...</option>
-                <option value="Legacy Unit">Legacy Unit</option>
-                <option value="AC Unit - 104">AC Unit - 104</option>
-                <option value="AC Unit - 104ST">AC Unit - 104ST</option>
-                <option value="Other">Other</option>
-            </select>
+            <div className="form-row three-columns">
+                <div className="form-group">
+                    <label htmlFor="modelNumber">Model Number</label>
+                    <input
+                        type="text"
+                        id="modelNumber"
+                        name="modelNumber"
+                        value={formData.modelNumber}
+                        onChange={handleChange}
+                    />
+                </div>
 
-            <label htmlFor="modelNumber">Model Number</label>
-            <input
-                type="text"
-                id="modelNumber"
-                name="modelNumber"
-                value={formData.modelNumber}
-                onChange={handleChange}
-            />
+                <div className="form-group">
+                    <label htmlFor="date">Service Date</label>
+                    <input
+                        type="date"
+                        id="date"
+                        name="date"
+                        value={formData.date}
+                        onChange={handleChange}
+                    />
+                </div>
 
-            <label htmlFor="issue">Issue Description</label>
-            <textarea
-                id="issue"
-                name="issue"
-                rows="4"
-                value={formData.issue}
-                onChange={handleChange}
-            />
+                <div className="form-group">
+                    <label htmlFor="laborHours">Labor Hours</label>
+                    <input
+                        type="number"
+                        id="laborHours"
+                        name="laborHours"
+                        value={formData.laborHours}
+                        onChange={handleChange}
+                        min="0"
+                        step="0.5"
+                    />
+                </div>
+            </div>
 
-            <label htmlFor="laborHours">Labor Hours</label>
-            <input
-                type="number"
-                id="laborHours"
-                name="laborHours"
-                value={formData.laborHours}
-                onChange={handleChange}
-                min="0"
-                step="0.5"
-            />
+            <div className="form-row">
+                <div className="form-group">
+                    <label htmlFor="issue">Issue Description</label>
+                    <textarea
+                        id="issue"
+                        name="issue"
+                        rows="4"
+                        value={formData.issue}
+                        onChange={handleChange}
+                    />
+                </div>
+            </div>
 
             <button type="submit">Generate Estimate</button>
         </form>
