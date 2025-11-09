@@ -23,10 +23,42 @@ function EstimateForm() {
         }));
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log("Estimate data submitted:", formData);
-        alert("Estimate generated successfully!");
+
+        try {
+            const response = await fetch("http://localhost:5000/api/estimates", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+            });
+
+            if (!response.ok) {
+            throw new Error("Network response was not ok");
+            }
+
+            const data = await response.json();
+            console.log("Estimate saved:", data);
+            alert("Estimate saved successfully!");
+
+            setFormData({
+            customerName: "",
+            customerLocation: "",
+            customerPhone: "",
+            customerEmail: "",
+            serviceType: "",
+            unitNumber: "",
+            modelNumber: "",
+            date: "",
+            laborHours: 1.0,
+            issue: "",
+            });
+        } catch (error) {
+            console.error("Error saving estimate:", error);
+            alert("Failed to save estimate. Check console for details.");
+        }
     };
 
     return (

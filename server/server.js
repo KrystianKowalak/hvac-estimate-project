@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const connectDB = require("./config/db");
+const estimateRoutes = require("./routes/estimateRoutes");
 require("dotenv").config();
 
 const app = express();
@@ -12,6 +13,7 @@ app.get("/", (req, res) => {
 });
 
 connectDB();
+app.use("/api/estimates", estimateRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
