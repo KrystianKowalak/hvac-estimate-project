@@ -1,13 +1,10 @@
-const express = require("express");
-const router = express.Router();
-const Estimate = require("../models/Estimate");
-const generateEstimatePDF = require("../utils/generateEstimatePDF");
+const router = require("express").Router();
+const { Estimate } = require("../../models");
+const generateEstimatePDF = require("../../utils/generateEstimatePDF");
 
 router.post("/", async (req, res) => {
     try {
-        const estimate = new Estimate(req.body);
-        const savedEstimate = await estimate.save();
-
+        const savedEstimate = await new Estimate(req.body).save();
         const pdfFile = await generateEstimatePDF(savedEstimate);
 
         res.status(201).json({
