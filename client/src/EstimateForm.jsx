@@ -40,7 +40,6 @@ function EstimateForm() {
             }
 
             const data = await response.json();
-            console.log("Estimate saved:", data);
             alert("Estimate saved successfully!");
 
             setFormData({
