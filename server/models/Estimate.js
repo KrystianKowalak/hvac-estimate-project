@@ -6,9 +6,13 @@ const estimateSchema = new mongoose.Schema(
             type: String, 
             required: [true, "Customer name is required."]
         },
-        customerLocation: {
+        customerAddressStreet: {
             type: String, 
-            required: [true, "Customer location is required."]
+            required: [true, "Customer street address is required."]
+        },
+        customerAddressCityStateZip: {
+            type: String, 
+            required: [true, "Customer city, state, and zip code is required."]
         },
         customerPhone: {
             type: String,
@@ -17,8 +21,7 @@ const estimateSchema = new mongoose.Schema(
                     return /^\(\d{3}\)\s\d{3}-\d{4}$/.test(v);
                 },
                 message: props => `${props.value} is not a valid phone number. Use format (949) 630-5614.`
-            },
-            required: [true, "Customer phone number is required."]
+            }
         },
         customerEmail: {
             type: String,
@@ -34,24 +37,40 @@ const estimateSchema = new mongoose.Schema(
             type: String, 
             required: [true, "Service type is required."]
         },
-        unitNumber: {
+        serviceTypePrice: {
             type: String, 
-            required: [true, "Unit number is required."]
+            required: [true, "Service type price is required."]
+        },
+        serviceQuantity: {
+            type: String, 
+            default: 1
+        },
+        unitType: {
+            type: String, 
+            required: [true, "Unit type is required."]
+        },
+        unitTypePrice: {
+            type: String, 
+            required: [true, "Unit type price is required."]
+        },
+        unitTypeQuantity: {
+            type: String, 
+            default: 1.0
         },
         modelNumber: { 
+            type: String
+        },
+        warrenty: {
+            type: Boolean,
+            required: [true, "If purchasing warrenty is required."]
+        },
+        description: {
             type: String
         },
         date: {
             type: Date,
             default: Date.now
-        },
-        laborHours: {
-            type: Number,
-            default: 1.0
-        },
-        issue: {
-            type: String
-        },
+        }
     },
     { timestamps: true }
 );

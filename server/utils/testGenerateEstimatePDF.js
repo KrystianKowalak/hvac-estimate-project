@@ -8,12 +8,16 @@ const mockEstimate = {
     customerAddressCityStateZip: "Lake Forest, CA 92630",
     customerPhone: "(949) 630-5614",
     customerEmail: "nicole.santos@email.com",
-    serviceType: "Maintenance",
-    unitNumber: "Furnace-XL900",
-    modelNumber: "AVX-4500",
-    laborHours: 2.5,
-    issue: "Furnace blowing cold air, thermostat unresponsive.",
-    date: new Date(),
+    serviceType: "Repair",
+    serviceTypePrice: 450.00,
+    serviceQuantity: 1,
+    unitType: "Furnace-XL90",
+    unitTypePrice: 1560.00,
+    unitTypeQuantity: 1,
+    modelNumber: "AVX-450",
+    warrenty: true,
+    description: "Furnace blowing cold air, thermostat unresponsive.",
+    date: new Date()
 };
 
 (async () => {

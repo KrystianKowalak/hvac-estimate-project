@@ -4,15 +4,21 @@ import "./EstimateForm.css";
 function EstimateForm() {
     const [formData, setFormData] = useState({
         customerName: "",
-        customerLocation: "",
+        customerAddress: "",
+        customerCityStateZip: "",
         customerPhone: "",
         customerEmail: "",
         serviceType: "",
-        unitNumber: "",
+        servicePrice: 0,
+        serviceQuantity: 0,
+        unitType: "",
+        unitPrice: 0,
+        unitQuantity: 0,
         modelNumber: "",
+        warrenty: false,
+        description: "",
         date: "",
-        laborHours: 1.0,
-        issue: ""
+        laborHours: 1.0
     });
 
     const handleChange = (event) => {
@@ -28,31 +34,37 @@ function EstimateForm() {
 
         try {
             const response = await fetch("http://localhost:5000/api/estimates", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData),
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formData),
             });
 
             if (!response.ok) {
-            throw new Error("Network response was not ok");
+                throw new Error("Network response was not ok");
             }
 
             const data = await response.json();
             alert("Estimate saved successfully!");
 
             setFormData({
-            customerName: "",
-            customerLocation: "",
-            customerPhone: "",
-            customerEmail: "",
-            serviceType: "",
-            unitNumber: "",
-            modelNumber: "",
-            date: "",
-            laborHours: 1.0,
-            issue: "",
+                customerName: "",
+                customerAddress: "",
+                customerCityStateZip: "",
+                customerPhone: "",
+                customerEmail: "",
+                serviceType: "",
+                servicePrice: 0,
+                serviceQuantity: 0,
+                unitType: "",
+                unitPrice: 0,
+                unitQuantity: 0,
+                modelNumber: "",
+                warrenty: false,
+                description: "",
+                date: "",
+                laborHours: 1.0
             });
         } catch (error) {
             console.error("Error saving estimate:", error);
@@ -75,12 +87,12 @@ function EstimateForm() {
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="customerLocation">Location</label>
+                    <label htmlFor="customerAddress">Location</label>
                     <input
                         type="text"
-                        id="customerLocation"
-                        name="customerLocation"
-                        value={formData.customerLocation}
+                        id="customerAddress"
+                        name="customerAddress"
+                        value={formData.customerAddress}
                         onChange={handleChange}
                     />
                 </div>
@@ -183,12 +195,12 @@ function EstimateForm() {
 
             <div className="form-row">
                 <div className="form-group">
-                    <label htmlFor="issue">Issue Description</label>
+                    <label htmlFor="description">Issue Description</label>
                     <textarea
-                        id="issue"
-                        name="issue"
+                        id="description"
+                        name="description"
                         rows="4"
-                        value={formData.issue}
+                        value={formData.description}
                         onChange={handleChange}
                     />
                 </div>
