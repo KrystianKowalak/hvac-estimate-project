@@ -21,15 +21,15 @@ function generateEstimatePDF(estimate) {
                 doc.restore();
             };
 
-            let [unitTypeQuantity, unitTypePrice, subTotal, total] = [0, 0, 0, 0]
+            let [unitQuantity, unitPrice, subTotal, total] = [0, 0, 0, 0]
             if (estimate.serviceType == "Installation") {
-                unitTypeQuantity = estimate.unitTypeQuantity
-                unitTypePrice = estimate.unitTypePrice
+                unitQuantity = estimate.quantity
+                unitPrice = estimate.unitPrice
 
-                subTotal = (estimate.serviceTypePrice * estimate.serviceQuantity) + (unitTypeQuantity * unitTypePrice)
+                subTotal = (estimate.servicePrice * estimate.quantity) + (unitPrice * unitQuantity)
             }
             else {
-                subTotal = (estimate.serviceTypePrice * estimate.serviceQuantity)
+                subTotal = (estimate.servicePrice * estimate.quantity)
             }
             if (estimate.warrenty) {
                 subTotal += 475
@@ -98,7 +98,7 @@ function generateEstimatePDF(estimate) {
             doc.font("Helvetica-Bold")
                 .fontSize(12)
                 .fillColor("white")
-                .text(`Invoice: ${estimate._id}`, boxX + 10, boxY + (headerHeight - 7.14) / 2);
+                .text(`Invoice: ${String(estimate._id).slice(0, 8)}`, boxX + 10, boxY + (headerHeight - 7.14) / 2);
 
             //Issued Row
             drawRow(boxX, boxY + headerHeight + 0.5, boxWidth, rowHeight, "#EDEDED");
@@ -171,9 +171,9 @@ function generateEstimatePDF(estimate) {
                 .fillColor("#686868")
                 .text(`${estimate.serviceType} and Labor`, boxX + 10, boxY + headerHeight + rowHeight + 7)
                 .text("Day rate for technicians and required materials", boxX + 129.5, boxY + headerHeight + rowHeight + 7)
-                .text(estimate.serviceQuantity, boxWidth - 144.8, boxY + headerHeight + rowHeight + 7, { align: "right", width: 60 })
-                .text(`$${estimate.serviceTypePrice.toFixed(2)}`, boxWidth - 69, boxY + headerHeight + rowHeight + 7, { align: "right", width: 60 })
-                .text(`$${(estimate.serviceTypePrice * estimate.serviceQuantity).toFixed(2)}`, boxWidth - 19.2, boxY + headerHeight + rowHeight + 7, { align: "right", width: 60 });
+                .text(estimate.quantity, boxWidth - 144.8, boxY + headerHeight + rowHeight + 7, { align: "right", width: 60 })
+                .text(`$${estimate.servicePrice.toFixed(2)}`, boxWidth - 69, boxY + headerHeight + rowHeight + 7, { align: "right", width: 60 })
+                .text(`$${(estimate.servicePrice * estimate.quantity).toFixed(2)}`, boxWidth - 19.2, boxY + headerHeight + rowHeight + 7, { align: "right", width: 60 });
             doc.strokeColor("#EDEDED")
                 .moveTo(boxX, boxY + headerHeight + rowHeight * 2)
                 .lineTo(boxX + boxWidth, boxY + headerHeight + rowHeight * 2)
@@ -201,9 +201,9 @@ function generateEstimatePDF(estimate) {
                     .fillColor("#686868")
                     .text(`${estimate.unitType} ${estimate.modelNumber}`, boxX + 10, boxY + headerHeight + rowHeight * 3 + 17)
                     .text(wrapDescription(estimate.description, 47), boxX + 129.5, boxY + headerHeight + rowHeight * 3 + 17)
-                    .text(unitTypeQuantity, boxWidth - 144.8, boxY + headerHeight + rowHeight * 3 + 17, { align: "right", width: 60 })
-                    .text(`$${unitTypePrice.toFixed(2)}`, boxWidth - 69, boxY + headerHeight + rowHeight * 3 + 17, { align: "right", width: 60 })
-                    .text(`$${(unitTypePrice * unitTypeQuantity).toFixed(2)}`, boxWidth - 19.2, boxY + headerHeight + rowHeight * 3 + 17, { align: "right", width: 60 });
+                    .text(unitQuantity, boxWidth - 144.8, boxY + headerHeight + rowHeight * 3 + 17, { align: "right", width: 60 })
+                    .text(`$${unitPrice.toFixed(2)}`, boxWidth - 69, boxY + headerHeight + rowHeight * 3 + 17, { align: "right", width: 60 })
+                    .text(`$${(unitPrice * unitQuantity).toFixed(2)}`, boxWidth - 19.2, boxY + headerHeight + rowHeight * 3 + 17, { align: "right", width: 60 });
                 doc.strokeColor("#EDEDED")
                     .moveTo(boxX, boxY + headerHeight + rowHeight * 4 + (10 * extraRowLines))
                     .lineTo(boxX + boxWidth, boxY + headerHeight + rowHeight * 4 + (10 * extraRowLines))
@@ -217,9 +217,9 @@ function generateEstimatePDF(estimate) {
                     .fillColor("#686868")
                     .text(`${estimate.unitType} ${estimate.modelNumber}`, boxX + 10, boxY + headerHeight + rowHeight * 2 + 7)
                     .text(wrapDescription(estimate.description, 47), boxX + 129.5, boxY + headerHeight + rowHeight * 2 + 7)
-                    .text(estimate.unitTypeQuantity, boxWidth - 144.8, boxY + headerHeight + rowHeight * 2 + 7, { align: "right", width: 60 })
-                    .text(`$${estimate.unitTypePrice}`, boxWidth - 69, boxY + headerHeight + rowHeight * 2 + 7, { align: "right", width: 60 })
-                    .text(`$${estimate.unitTypePrice}`, boxWidth - 19.2, boxY + headerHeight + rowHeight * 2 + 7, { align: "right", width: 60 });
+                    .text(estimate.unitQuantity, boxWidth - 144.8, boxY + headerHeight + rowHeight * 2 + 7, { align: "right", width: 60 })
+                    .text(`$${unitPrice.toFixed(2)}`, boxWidth - 69, boxY + headerHeight + rowHeight * 2 + 7, { align: "right", width: 60 })
+                    .text(`$${(unitPrice * unitQuantity).toFixed(2)}`, boxWidth - 19.2, boxY + headerHeight + rowHeight * 2 + 7, { align: "right", width: 60 });
                 doc.strokeColor("#EDEDED")
                     .moveTo(boxX, boxY + headerHeight + rowHeight * 3 + (10 * extraRowLines))
                     .lineTo(boxX + boxWidth, boxY + headerHeight + rowHeight * 3 + (10 * extraRowLines))

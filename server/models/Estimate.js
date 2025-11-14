@@ -6,14 +6,6 @@ const estimateSchema = new mongoose.Schema(
             type: String, 
             required: [true, "Customer name is required."]
         },
-        customerAddressStreet: {
-            type: String, 
-            required: [true, "Customer street address is required."]
-        },
-        customerAddressCityStateZip: {
-            type: String, 
-            required: [true, "Customer city, state, and zip code is required."]
-        },
         customerPhone: {
             type: String,
             validate: {
@@ -33,28 +25,36 @@ const estimateSchema = new mongoose.Schema(
             },
             required: [true, "Customer email is required."]
         },
+        customerAddressStreet: {
+            type: String, 
+            required: [true, "Customer street address is required."]
+        },
+        customerAddressCityStateZip: {
+            type: String, 
+            required: [true, "Customer city, state, and zip code is required."]
+        },
+        date: {
+            type: Date,
+            default: Date.now
+        },
         serviceType: {
             type: String, 
             required: [true, "Service type is required."]
         },
-        serviceTypePrice: {
-            type: String, 
-            required: [true, "Service type price is required."]
-        },
-        serviceQuantity: {
-            type: String, 
-            default: 1
+        servicePrice: {
+            type: Number, 
+            required: [true, "Service price is required."]
         },
         unitType: {
             type: String, 
             required: [true, "Unit type is required."]
         },
-        unitTypePrice: {
-            type: String, 
-            required: [true, "Unit type price is required."]
+        unitPrice: {
+            type: Number, 
+            required: [true, "Unit price is required."]
         },
-        unitTypeQuantity: {
-            type: String, 
+        quantity: {
+            type: Number, 
             default: 1.0
         },
         modelNumber: { 
@@ -66,10 +66,6 @@ const estimateSchema = new mongoose.Schema(
         },
         description: {
             type: String
-        },
-        date: {
-            type: Date,
-            default: Date.now
         }
     },
     { timestamps: true }
