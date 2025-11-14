@@ -64,7 +64,7 @@
     width: 70px;
 }
 
-.estimate-form.description-header {
+.estimate-form .description-header {
     justify-content: space-between;
 }
 
