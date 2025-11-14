@@ -11,6 +11,7 @@
 
 .estimate-form .form-row {
     display: flex;
+    flex-wrap: wrap;
     flex-direction: row;
     gap: 1.25rem;
 }
@@ -36,6 +37,7 @@
     border-radius: 5px;
     background-color: #fafafa;
     font-size: 1rem;
+    vertical-align: middle;
 }
 
 .estimate-form input:focus,
@@ -47,7 +49,7 @@
 
 .estimate-form .error-text {
     color: red;
-    font-size: 1.2rem;
+    font-size: .9rem;
     margin-left: 6px;
 }
 
