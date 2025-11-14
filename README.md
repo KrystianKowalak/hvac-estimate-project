@@ -61,23 +61,42 @@ Built with the **MERN stack** (MongoDB, Express.js, React, Node.js), the project
 ```
 hvac-estimate-project/
 │
-├── client/                 # React frontend
+├── client/                             # React frontend
+│   ├── public/
+│   │   ├── hvac.ico
+│   │   ├── hvac.png
+│   │   └── toolbox.png
 │   ├── src/
-│   │   ├── components/
-│   │   └── styles/
-│   └── package.json
+│   │   ├── App.css
+│   │   ├── App.jsx
+│   │   ├── EstimateForm.css
+│   │   ├── EstimateForm.jsx
+│   │   └── main.jsx
+│   ├── index.html
+│   ├── package.json
+│   └── vite.config.js
 │
-├── server/                 # Backend
+├── server/                             # Backend
+│   ├── config/
+│   │   └── databaseConnection.js.js
 │   ├── models/
-│   │   └── Estimate.js
+│   │   ├── Estimate.js
+│   │   └── index.js
 │   ├── routes/
-│   │   └── estimateRoutes.js
+│   │   ├── api/
+│   │   |   ├── estimateRoutes.js
+│   │   |   └── index.js
+│   │   └── index.js
 │   ├── utils/
 │   │   ├── generateEstimatePDF.js
-│   │   └── helperFunctions.js
+│   │   ├── helperFunctions.js
+│   │   └── testGenerateEstimatePDF.js
+│   ├── package.json
 │   └── server.js
 │
-├── package.json            # Root dependency definitions
+├── pdfs/                               # generated pdf's
+│
+├── package.json                        # Root dependency definitions
 └── README.md
 ```
 
