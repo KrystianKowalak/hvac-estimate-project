@@ -1,4 +1,4 @@
-# 🌬️ HVAC Estimate Generator
+# HVAC Estimate Generator
 A full-stack MERN application for HVAC technicians to create HVAC service estimates with automated PDF generation.
 
 <img width="905" height="649" alt="image" src="https://github.com/user-attachments/assets/27dd3bd8-bcac-48af-9e68-4d68ff088a5e" />
