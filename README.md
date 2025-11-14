@@ -190,12 +190,6 @@ PDFs include:
 ### Database
 - MongoDB Atlas
 
-Update your frontend `.env`:
-
-```
-REACT_APP_API_URL=https://your-backend-url.com
-```
-
 ---
 
 ## 🧩 Future Improvements
@@ -203,7 +197,8 @@ REACT_APP_API_URL=https://your-backend-url.com
 - Customer search & filtering
 - Email delivery of PDFs
 - Dashboard with saved estimates
-- Invoice generation
+- Database expansion to include customers
+- Add customer account totals and invoice generation
 - Maintenance reminders
 
 ---
