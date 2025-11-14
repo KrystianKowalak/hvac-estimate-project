@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./EstimateForm.css";
 
 function EstimateForm() {
+    const [errors, setErrors] = useState({});
     const [formData, setFormData] = useState({
         customerName: "",
         customerPhone: "",
@@ -21,20 +22,17 @@ function EstimateForm() {
         warrenty: false,
         description: ""
     });
-
     const servicePrices = {
         Repair: 250.0,
         Installation: 350.0,
         Maintenance: 200.0
     };
-
     const unitPrices = {
         "Legacy Unit": 900.0,
         "AC Unit-104": 1200.0,
         "AC Unit-104ST": 1500.0,
         "Furnace-XL90": 1650
     };
-
     const states = [
         "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA",
         "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD",
@@ -42,6 +40,42 @@ function EstimateForm() {
         "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC",
         "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"
     ];
+    const requiredFields = {
+        customerName: "Name",
+        customerEmail: "Email",
+        customerAddressStreet: "Street",
+        customerCity: "City",
+        customerState: "State",
+        customerZip: "ZIP Code",
+        serviceType: "Service Type",
+        unitType: "Unit Type"
+    };
+
+    const validateForm = () => {
+        let newErrors = {};
+
+        for (const field in requiredFields) {
+            if (formData[field].trim() === "") {
+                newErrors[field] = "Required!";
+            }
+        }
+
+        if (formData.customerPhone.trim() !== "") {
+            if (!/^\(\d{3}\)\s\d{3}-\d{4}$/.test(formData.customerPhone)) {
+                newErrors.customerPhone = "Phone must be in format (949) 630-5614.";
+            }
+        }
+
+        if (formData.customerEmail.trim() !== "") {
+            if (!/^\S+@\S+\.\S+$/.test(formData.customerEmail)) {
+                newErrors.customerEmail = "Email must be valid.";
+            }
+        }
+
+        setErrors(newErrors);
+
+        return Object.keys(newErrors).length === 0
+    };
 
     const handleChange = (event) => {
         const { name, value, type, checked } = event.target;
@@ -63,12 +97,22 @@ function EstimateForm() {
                     `${updated.customerCity}, ${updated.customerState} ${updated.customerZip}`;
             }
 
+            setErrors((prev) => {
+                if (!prev[name]) return prev;
+                const { [name]: _removed, ...rest } = prev;
+                return rest;
+            });
+
             return updated;
         });
     };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+
+        if (!validateForm()) {
+            return;
+        }
 
         try {
             const response = await fetch("http://localhost:5000/api/estimates", {
@@ -109,9 +153,16 @@ function EstimateForm() {
 
     return (
         <form className="estimate-form" onSubmit={handleSubmit}>
+            {Object.keys(errors).length > 0 &&
+                <div className="error-text">
+                    <div>Please fill all the required fields below.</div>
+                    {errors.customerEmail && <div>Email is not valid.</div>}
+                    {errors.customerPhone && <div>Phone number is not in the correct format. (XXX) XXX-XXXX</div>}
+                </div>
+            }
             <div className="form-row">
                 <div className="form-group">
-                    <label>Name</label>
+                    <label>Name{errors.customerName && <span className="error-text">!!</span>}</label>
                     <input
                         type="text"
                         name="customerName"
@@ -121,7 +172,7 @@ function EstimateForm() {
                 </div>
 
                 <div className="form-group">
-                    <label>Phone</label>
+                    <label>Phone{errors.customerPhone && <span className="error-text">!!</span>}</label>
                     <input
                         type="text"
                         name="customerPhone"
@@ -131,7 +182,7 @@ function EstimateForm() {
                 </div>
 
                 <div className="form-group">
-                    <label>Email</label>
+                    <label>Email{errors.customerEmail && <span className="error-text">!!</span>}</label>
                     <input
                         type="text"
                         name="customerEmail"
@@ -143,7 +194,7 @@ function EstimateForm() {
 
             <div className="form-row">
                 <div className="form-group">
-                    <label>Street</label>
+                    <label>Street{errors.customerAddressStreet && <span className="error-text">!!</span>}</label>
                     <input
                         type="text"
                         name="customerAddressStreet"
@@ -153,7 +204,7 @@ function EstimateForm() {
                 </div>
 
                 <div className="form-group">
-                    <label>City</label>
+                    <label>City{errors.customerCity && <span className="error-text">!!</span>}</label>
                     <input
                         type="text"
                         name="customerCity"
@@ -163,7 +214,7 @@ function EstimateForm() {
                 </div>
 
                 <div className="form-group state-field">
-                    <label>State</label>
+                    <label>State{errors.customerState && <span className="error-text">!!</span>}</label>
                     <select
                         name="customerState"
                         value={formData.customerState}
@@ -177,7 +228,7 @@ function EstimateForm() {
                 </div>
 
                 <div className="form-group zip-field">
-                    <label>ZIP</label>
+                    <label>ZIP{errors.customerZip && <span className="error-text">!!</span>}</label>
                     <input
                         type="text"
                         name="customerZip"
@@ -199,7 +250,7 @@ function EstimateForm() {
 
             <div className="form-row">
                 <div className="form-group">
-                    <label>Service Type</label>
+                    <label>Service Type{errors.serviceType && <span className="error-text">!!</span>}</label>
                     <select
                         name="serviceType"
                         value={formData.serviceType}
@@ -213,7 +264,7 @@ function EstimateForm() {
                 </div>
 
                 <div className="form-group">
-                    <label>Unit Type</label>
+                    <label>Unit Type{errors.unitType && <span className="error-text">!!</span>}</label>
                     <select
                         name="unitType"
                         value={formData.unitType}
@@ -247,28 +298,29 @@ function EstimateForm() {
                         onChange={handleChange}
                     />
                 </div>
+            </div>
 
-                <div className="form-group">
-                    <label>Warranty</label>
+            <div className="form-row description-header">
+                <label>Description</label>
+
+                <label>
+                    Purchasing Warranty:
                     <input
                         type="checkbox"
                         name="warrenty"
                         checked={formData.warrenty}
                         onChange={handleChange}
                     />
-                </div>
+                </label>
             </div>
 
-            <div className="form-row">
-                <div className="form-group">
-                    <label>Issue Description</label>
-                    <textarea
-                        name="description"
-                        rows="4"
-                        value={formData.description}
-                        onChange={handleChange}
-                    ></textarea>
-                </div>
+            <div className="form-row description-textarea">
+                <textarea className="form-group"
+                    name="description"
+                    rows="4"
+                    value={formData.description}
+                    onChange={handleChange}
+                ></textarea>
             </div>
 
             <button type="submit">Generate Estimate</button>

@@ -45,6 +45,12 @@
     background-color: #fff;
 }
 
+.estimate-form .error-text {
+    color: red;
+    font-size: 1.2rem;
+    margin-left: 6px;
+}
+
 .estimate-form .state-field select {
     width: 70px;
 }
@@ -53,8 +59,17 @@
     width: 50px;
 }
 
-.estimate-form .qty-field input {
-    width: 50px;
+.estimate-form .qty-field {
+    flex: 0 0 auto;
+    width: 70px;
+}
+
+.estimate-form.description-header {
+    justify-content: space-between;
+}
+
+.estimate-form .description-textarea {
+    margin-top: -1.6rem; 
 }
 
 .estimate-form button {

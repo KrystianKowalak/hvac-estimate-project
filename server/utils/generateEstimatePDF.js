@@ -195,7 +195,8 @@ function generateEstimatePDF(estimate) {
                     .stroke();
 
                 //Description
-                const extraRowLines = Math.ceil(estimate.description.length / 47)
+                let extraRowLines = Math.ceil(estimate.description.length / 47)
+                if (extraRowLines == 0) { extraRowLines += 1 }
                 doc.font("Helvetica")
                     .fontSize(10)
                     .fillColor("#686868")
@@ -211,7 +212,8 @@ function generateEstimatePDF(estimate) {
             }
             else {
                 //Description
-                const extraRowLines = Math.ceil(estimate.description.length / 47) - 1
+                let extraRowLines = Math.ceil(estimate.description.length / 47) - 1
+                if (extraRowLines < 0) { extraRowLines += 1 }
                 doc.font("Helvetica")
                     .fontSize(10)
                     .fillColor("#686868")
